@@ -18,8 +18,8 @@ This is a fixed version of the Ultraviolet syntax highlighting library for the 1
 
 Ultraviolet requires a couple other libraries. Textpow and plist are required but not working on 1.9. But don't fret, fixed versions can be found at the following locations:
 
-    {Textpow}[http://github.com/spox/textpow]
-    {plist}[http://github.com/spox/plist]
+* {Textpow}[http://github.com/spox/textpow]
+* {plist}[http://github.com/spox/plist]
 
 = Etc.
 
