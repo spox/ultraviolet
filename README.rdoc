@@ -1,0 +1,26 @@
+= Ultraviolet
+
+This is a fixed version of the Ultraviolet syntax highlighting library for the 1.9 tree of the Ruby programming language. There are still some languages that are not working, but hopefully will be soon. If you find any bugs, or fix any syntax files, please send me a note and I'll update the repository.
+
+== Non-working languages
+ * C
+ * C++
+ * mail
+ * markdown
+ * mel
+ * PHP
+ * pmwiki
+ * Regexp Oniguruma
+ * Regexp Python
+ * Smarty
+ 
+== Install
+
+Ultraviolet requires a couple other libraries. Textpow and plist are required but not working on 1.9. But don't fret, fixed versions can be found at the following locations:
+
+    {Textpow}[http://github.com/spox/textpow]
+    {plist}[http://github.com/spox/plist]
+
+= Etc.
+
+For ultraviolet information, see the README.txt file for original author information
