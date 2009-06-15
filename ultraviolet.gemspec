@@ -10,6 +10,7 @@ spec = Gem::Specification.new do |s|
     s.rdoc_options      = %w(--title Ultraviolet --main README.txt --line-numbers)
     s.extra_rdoc_files  = %w(README.txt)
     s.require_paths     = %w(lib)
+    s.executables       = %w(uv)
     s.required_ruby_version = '>= 1.9.0'
     s.add_dependency 'textpow'
     description         = []
