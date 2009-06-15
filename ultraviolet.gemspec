@@ -12,6 +12,6 @@ Gem::Specification.new do |s|
     s.require_paths     = %w(lib)
     s.executables       = %w(uv theme2latexrender theme2xhtmlrender)
     s.required_ruby_version = '>= 1.9.0'
-    s.add_dependency 'textpow'
+    s.add_dependency 'spox-textpow'
     s.description = "Ruby syntax highlighting"
 end
