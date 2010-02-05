@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
     s.name              = 'ultraviolet'
     s.author            = %q(spox)
     s.email             = %q(spox@modspox.com)
-    s.version           = '0.10.4'
+    s.version           = '0.10.5'
     s.summary           = %q(ultraviolet)
     s.platform          = Gem::Platform::RUBY
     s.has_rdoc          = true
