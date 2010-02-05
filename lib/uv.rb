@@ -64,10 +64,10 @@ module Uv
       result
    end
    
-   def Uv.parse text, output = "xhtml", syntax_name = nil, line_numbers = false, render_style = "classic", headers = false
+   def Uv.parse text, output = "xhtml", syntax_name = nil, line_numbers = false, render_style = "mac_classic", headers = false
       init_syntaxes unless @syntaxes
       renderer = File.join( File.dirname(__FILE__), '..',"render", output,"#{render_style}.render")
-      raise( ArgumentError, "Output for #{output} is not yet implemented" ) unless File.exists?(renderer)
+      raise( ArgumentError, "Output for #{output} in #{render_style} style is not yet implemented" ) unless File.exists?(renderer)
       css_class = render_style
       render_options = YAML.load( File.open(  renderer ) )
       render_processor = RenderProcessor.new( render_options, line_numbers, headers )
