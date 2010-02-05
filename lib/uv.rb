@@ -5,7 +5,14 @@ require 'uv/render_processor.rb'
 
 
 module Uv
+  class << self
+    attr_accessor :render_path, :syntax_path, :default_style
+  end
 
+  self.syntax_path   = File.join(File.dirname(__FILE__), '..', 'syntax')
+  self.render_path   = File.join(File.dirname(__FILE__), '..', 'render')
+  self.default_style = 'mac_classic'
+  
   def Uv.path
     result = []
     result << File.join(File.dirname(__FILE__), ".." )
@@ -20,19 +27,19 @@ module Uv
 
   def Uv.init_syntaxes
     @syntaxes = {}
-    Dir.glob( File.join(File.dirname(__FILE__), '..', 'syntax', '*.syntax') ).each do |f| 
+    Dir.glob( File.join(@syntax_path, '*.syntax') ).each do |f| 
       @syntaxes[File.basename(f, '.syntax')] = Textpow::SyntaxNode.load( f )
     end
   end
 
   def Uv.syntaxes
-    Dir.glob( File.join(File.dirname(__FILE__), '..', 'syntax', '*.syntax') ).collect do |f| 
+    Dir.glob( File.join(@syntax_path, '*.syntax') ).collect do |f| 
       File.basename(f, '.syntax')
     end
   end
 
   def Uv.themes
-    Dir.glob( File.join(File.dirname(__FILE__), '..', 'render', 'xhtml', 'files', 'css', '*.css') ).collect do |f| 
+    Dir.glob( File.join(@render_path, 'xhtml', 'files', 'css', '*.css') ).collect do |f| 
       File.basename(f, '.css')
     end
   end
@@ -64,9 +71,10 @@ module Uv
     result
   end
 
-  def Uv.parse text, output = "xhtml", syntax_name = nil, line_numbers = false, render_style = "mac_classic", headers = false
+  def Uv.parse text, output = "xhtml", syntax_name = nil, line_numbers = false, render_style = nil, headers = false
+    render_style ||= @default_style
     init_syntaxes unless @syntaxes
-    renderer = File.join( File.dirname(__FILE__), '..',"render", output,"#{render_style}.render")
+    renderer = File.join( @render_path, output,"#{render_style}.render")
     raise( ArgumentError, "Output for #{output} in #{render_style} style is not yet implemented" ) unless File.exists?(renderer)
     css_class = render_style
     render_options = YAML.load( File.open(  renderer ) )
@@ -78,7 +86,7 @@ module Uv
   def Uv.debug text, syntax_name
     unless @syntaxes
       @syntaxes = {}
-      Dir.glob( File.join(File.dirname(__FILE__), '..', 'syntax', '*.syntax') ).each do |f| 
+      Dir.glob( File.join(@syntax_path, '*.syntax') ).each do |f| 
         @syntaxes[File.basename(f, '.syntax')] = Textpow::SyntaxNode.load( f )
       end
     end

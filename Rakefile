@@ -46,6 +46,6 @@ begin
 rescue LoadError => e
    desc 'Run the test suite.'
    task :test do
-      system "ruby -Ibin:lib:test test_#{rubyforge_name}.rb"
+      system "ruby -Ibin:lib:test test/test_#{rubyforge_name}.rb"
    end
 end
