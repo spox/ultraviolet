@@ -6,29 +6,38 @@ require 'uv/render_processor.rb'
 
 module Uv
   class << self
-    attr_accessor :render_path, :syntax_path, :default_style
+    attr_accessor :render_path, :syntax_path, :default_style, :syntaxes
   end
 
   self.syntax_path   = File.join(File.dirname(__FILE__), '..', 'syntax')
   self.render_path   = File.join(File.dirname(__FILE__), '..', 'render')
   self.default_style = 'mac_classic'
+  self.syntaxes      = {}
   
   def Uv.path
     result = []
     result << File.join(File.dirname(__FILE__), ".." )
   end
 
+  def self.syntax_node_for(syntax)
+    if !@syntaxes.key?(syntax)
+      filename = File.join(@syntax_path, "#{syntax}.syntax")
+      @syntaxes[syntax] = if File.exist?(filename)
+        Textpow::SyntaxNode.load(filename)
+      else
+        false
+      end
+    end
+    if !@syntaxes[syntax]
+      raise ArgumentError, "No #{syntax}.syntax file in #{@syntax_path}"
+    end
+    @syntaxes[syntax]
+  end
+
   def Uv.copy_files output, output_dir
     Uv.path.each do |dir|
       dir_name = File.join( dir, "render", output, "files" )
       FileUtils.cp_r( Dir.glob(File.join( dir_name, "." )), output_dir ) if File.exists?( dir_name )
-    end
-  end
-
-  def Uv.init_syntaxes
-    @syntaxes = {}
-    Dir.glob( File.join(@syntax_path, '*.syntax') ).each do |f| 
-      @syntaxes[File.basename(f, '.syntax')] = Textpow::SyntaxNode.load( f )
     end
   end
 
@@ -72,22 +81,13 @@ module Uv
   end
 
   def Uv.parse text, output = "xhtml", syntax_name = nil, line_numbers = false, render_style = nil, headers = false
-    init_syntaxes unless @syntaxes
     RenderProcessor.load(output, render_style, line_numbers, headers) do |processor|
-      @syntaxes[syntax_name].parse(text,  processor)
+      syntax_node_for(syntax_name).parse(text, processor)
     end.string
   end
 
   def Uv.debug text, syntax_name
-    unless @syntaxes
-      @syntaxes = {}
-      Dir.glob( File.join(@syntax_path, '*.syntax') ).each do |f| 
-        @syntaxes[File.basename(f, '.syntax')] = Textpow::SyntaxNode.load( f )
-      end
-    end
-    processor = Textpow::DebugProcessor.new
-
-    @syntaxes[syntax_name].parse( text, processor )
+    syntax_node_for(syntax_name).parse(text, Textpow::DebugProcessor.new)
   end
 
 end
