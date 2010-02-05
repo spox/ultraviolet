@@ -72,15 +72,10 @@ module Uv
   end
 
   def Uv.parse text, output = "xhtml", syntax_name = nil, line_numbers = false, render_style = nil, headers = false
-    render_style ||= @default_style
     init_syntaxes unless @syntaxes
-    renderer = File.join( @render_path, output,"#{render_style}.render")
-    raise( ArgumentError, "Output for #{output} in #{render_style} style is not yet implemented" ) unless File.exists?(renderer)
-    css_class = render_style
-    render_options = YAML.load( File.open(  renderer ) )
-    render_processor = RenderProcessor.new( render_options, line_numbers, headers )
-    @syntaxes[syntax_name].parse( text,  render_processor )
-    render_processor.string
+    RenderProcessor.load(output, render_style, line_numbers, headers) do |processor|
+      @syntaxes[syntax_name].parse(text,  processor)
+    end.string
   end
 
   def Uv.debug text, syntax_name
