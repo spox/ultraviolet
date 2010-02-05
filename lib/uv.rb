@@ -6,11 +6,12 @@ require 'uv/render_processor.rb'
 
 module Uv
   class << self
-    attr_accessor :render_path, :syntax_path, :default_style, :syntaxes
+    attr_accessor :render_path, :theme_path, :syntax_path, :default_style, :syntaxes
   end
 
   self.syntax_path   = File.join(File.dirname(__FILE__), '..', 'syntax')
   self.render_path   = File.join(File.dirname(__FILE__), '..', 'render')
+  self.theme_path    = File.join(render_path, 'xhtml', 'files', 'css')
   self.default_style = 'mac_classic'
   self.syntaxes      = {}
   
@@ -48,7 +49,7 @@ module Uv
   end
 
   def Uv.themes
-    Dir.glob( File.join(@render_path, 'xhtml', 'files', 'css', '*.css') ).collect do |f| 
+    Dir.glob( File.join(@theme_path, '*.css') ).collect do |f| 
       File.basename(f, '.css')
     end
   end
