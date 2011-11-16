@@ -131,7 +131,7 @@ repository:
           "0": 
             name: punctuation.definition.constant.xml
         begin: <!\[CDATA\[
-        end: "]]>"
+        end: "\]\]>"
       comment: the extra captures are required to duplicate the effect of the namespace parsing in the XML syntax
     - captures: 
         "1": 
@@ -238,7 +238,7 @@ repository:
           "0": 
             name: punctuation.definition.string.xml
         begin: <!\[CDATA\[
-        end: "]]>"
+        end: "\]\]>"
       comment: Strings
     - captures: 
         "1": 
@@ -260,7 +260,7 @@ repository:
           "1": 
             name: constant.numeric.real.xml.plist
         begin: (<!\[CDATA\[)
-        end: (]]>)
+        end: (\]\]>)
         patterns: 
         - name: constant.numeric.real.xml.plist
           match: "[-+]?\\d+(\\.\\d*)?(E[-+]\\d+)?"
