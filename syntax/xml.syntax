@@ -175,6 +175,6 @@ patterns:
   beginCaptures: 
     "0": 
       name: punctuation.definition.string.begin.xml
-  end: "]]>"
+  end: "\]\]>"
 foldingStopMarker: ^\s*(</[^>]+>|[/%]>|-->)\s*$
 keyEquivalent: ^~X

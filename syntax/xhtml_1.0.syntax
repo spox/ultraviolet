@@ -168,11 +168,11 @@ repository:
       - include: "#sgml-comment"
       - name: meta.scope.xml-cdata.html
         begin: <!\[CDATA\[
-        end: "]]>"
+        end: "\]\]>"
         patterns: 
         - include: source.css
       - name: invalid.illegal.char_not_allowed
-        match: <|>|]]>|--
+        match: <|>|\]\]>|--
       - include: "#entities"
       - include: source.css
     - name: meta.tag.meta.style.html
@@ -1040,11 +1040,11 @@ repository:
       - include: "#sgml-comment"
       - name: meta.scope.xml-cdata.html
         begin: <!\[CDATA\[
-        end: "]]>"
+        end: "\]\]>"
         patterns: 
         - include: source.js
       - name: invalid.illegal.char_not_allowed
-        match: <|>|]]>|--
+        match: <|>|\]\]>|--
       - include: "#entities"
       - include: source.js
     - name: meta.tag.block.script.html
@@ -3245,7 +3245,7 @@ repository:
     - include: "#sgml-comment"
     - name: meta.scope.xml-cdata.html
       begin: <!\[CDATA\[
-      end: "]]>"
+      end: "\]\]>"
   attribute-cellspacing: 
     name: meta.attribute-with-value.html
     begin: (cellpadding)\s*=\s*(?=(["']).*?["'])
